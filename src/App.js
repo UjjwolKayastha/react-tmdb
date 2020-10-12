@@ -1,12 +1,14 @@
-import React from 'react';
-
+import React from "react";
+import Header from "./components/Header";
+import { GlobalStyle } from "./GlobalStyle";
 
 const App = () => {
   return (
     <div className="App">
-      <h2>HELLO FROM THE OTHER SIDE</h2>
+      <Header/>
+      <GlobalStyle />
     </div>
   );
-}
+};
 
 export default App;
