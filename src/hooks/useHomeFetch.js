@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import API from "../API";
 
 const initialState = {
-    page: 0,
-    results: [],
-    total_pages: 0,
-    total_results: 0
-}
+  page: 0,
+  results: [],
+  total_pages: 0,
+  total_results: 0,
+};
 
 const useHomeFetch = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [state, setState] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -30,12 +32,13 @@ const useHomeFetch = () => {
     setLoading(false);
   };
 
-  //Initial render
+  //Initial render and search
   useEffect(() => {
-    fetchMovies(1);
-  }, []);
+    setState(initialState);
+    fetchMovies(searchTerm, 1);
+  }, [searchTerm]);
 
-  return { state, loading, error };
+  return { state, loading, error, searchTerm, setSearchTerm };
 };
 
 export default useHomeFetch;
