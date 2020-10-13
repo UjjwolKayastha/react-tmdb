@@ -18,10 +18,23 @@ import Grid from "./Grid";
 import Thumbnail from "./Thumbnail";
 import Spinner from "./Spinner/index";
 import SearchBar from "./SearchBar";
+import Button from "./Button";
 
 const Home = () => {
-  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();
+  const {
+    state,
+    loading,
+    error,
+    searchTerm,
+    setSearchTerm,
+    setIsLoadingMore,
+  } = useHomeFetch();
   console.log(state);
+
+  if (error)
+    return (
+        <h1 style={{color: "var(--darkGrey)", textAlign: "center"}}>Something went wrong..</h1>
+    );
   return (
     <>
       {!searchTerm && state.results[0] ? (
@@ -32,7 +45,10 @@ const Home = () => {
         />
       ) : null}
       <SearchBar setSearchTerm={setSearchTerm} />
-      <Grid header={searchTerm? `Results for: ${searchTerm}`:"Popular Movies"}>
+        
+      <Grid
+        header={searchTerm ? `Results for: ${searchTerm}` : "Popular Movies"}
+      >
         {state.results.map((movie) => (
           <Thumbnail
             key={movie.id}
@@ -46,7 +62,15 @@ const Home = () => {
           />
         ))}
       </Grid>
-      <Spinner />
+      {loading && <Spinner />}
+      {state.page < state.total_pages && !loading && (
+        <Button
+          text="Load More"
+          callback={() => {
+            setIsLoadingMore(true);
+          }}
+        />
+      )}
     </>
   );
 };

@@ -34,7 +34,7 @@ export const Content = styled.div`
   }
 
   input {
-    font-size: 28px;
+    font-size: var(--fontBig);
     position: absolute;
     left: 0;
     margin: 8px 0;
@@ -50,7 +50,7 @@ export const Content = styled.div`
     }
 
     @media screen and (max-width: 720px) {
-      font-size: 15px;
+      font-size: var(--fontSmall);
       height: 15px;
       padding: 0 0 0 40px;
     }
